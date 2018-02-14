@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="work">
+    <div class="container">
+        <div class="row">
+            {% for p in post %}
+                <div class="col-md-4">
+                    {% if p.image %}
+                        <div class="fh5co-grid animate-box" style="background-image: url({{ p.image.url }});">
+                            <a class="image-popup text-center" href="{{ p.get_absolute_url }}">
+                                <div class="work-title">
+                                    <h3>{{ p.title }}</h3>
+                                    <span>{{ p.category }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+
+
+ 

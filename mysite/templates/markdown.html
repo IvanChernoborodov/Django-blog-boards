@@ -1,0 +1,73 @@
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+    $('.menu-icon').click(function () {
+        if ($('#navigator').css("left") == "-250px") {
+            $('#navigator').animate({left: '0px'}, 350);
+            $('.menu-icon').animate({left: '250px'}, 350);
+            $('.menu-text').animate({left: '300px'}, 350).empty().text("Close");
+        } 
+        else  {
+            $('#navigator').animate({left: '-250px'}, 350); 
+            $(this).animate({left: '0px'}, 350);
+            $('.menu-text').animate({left: '50px'}, 350).empty().text("Menu");
+
+        } 
+	});
+    $('.menu-icon').click(function () {
+	            $(this).toggleClass("on"); });
+});
+</script>
+<script
+	src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous">
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+			$(".content-markdown").each(function(){
+				var content =  $(this).text()
+				var markedContent = marked(content)
+				console.log(markedContent)
+				$(this).html(markedContent)
+		})
+			// script for responsive imgs of class "content-markdown"
+			$(".content-markdown img").each(function(){
+				$(this).addClass("img-responsive");
+		})
+			var titleItem = $('#id_title')
+			$("#preview-title").text(titleItem.val())
+			var contentItem = $('#id_content')
+			$("#preview-content").html(marked(contentItem.val()))
+	 		function CutTheImage(value){
+				var markedContent = marked(value)
+				$("#preview-content").html(markedContent)
+				$("#preview-content img").each(function(){
+					$(this).addClass("img-responsive")
+
+				})		
+			}
+			CutTheImage(contentItem.val( ))
+			contentItem.keyup(function(){
+				var newContent = $(this).val()
+				CutTheImage(newContent)
+			})
+			function PrevTitle(value){
+				$("#preview-title").text(value)
+			}
+			PrevTitle(titleItem.val())
+			titleItem.keyup(function(){
+				var newTitle = $(this).val()
+				PrevTitle(newTitle)
+
+			})
+			function PrevSlug(value){
+				$('#id_slug').html(value)
+			}
+			PrevSlug(titleItem.val())
+			titleItem.keyup(function(){
+				var newSlug = $(this).val()
+				PrevSlug(newSlug)
+			})
+	})
+</script>

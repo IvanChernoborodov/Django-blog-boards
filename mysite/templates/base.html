@@ -1,0 +1,171 @@
+{% load staticfiles %}
+{% include "messages_display.html" %}
+{% include "head.html" %}
+{% block extra %}
+{% endblock extra %}
+<!DOCTYPE html>
+<html class="no-js"> 
+<head>
+<title>{% block block_title %}Programming{% endblock block_title %}</title>
+<meta charset="utf-8">
+</head>
+<body>
+<div class="content">
+
+
+<div class="box-wrap ">
+	<header role="banner" id="fh5co-header">
+		<div class="container ">
+			<nav class="navbar navbar-default">
+			
+					<div class="col-md-4">
+						<div id="navigator">
+							<ul id="nav">
+								<li class="nav_tab">
+								{% for x in list %}
+								<a href="{{ x.get_absolute_url }}"><p>{{ x.title }}</p></a>
+								{% endfor %}
+								</li>
+							</ul>
+						</div>
+						<div class="menu-icon animate-box">			
+						<div class="line_one"></div>
+						<div class="line_two"></div>
+						<div class="line_three"></div>  			
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="fh5co-navbar-brand">
+						<a href='/'><p>-PROGRAMMING- -AND OTHER-</p></a>
+						</div>
+					</div>
+					
+
+				
+					
+				<div class="col-md-4 animate-box">
+						<ul class="social">
+
+							<li><a href="https://github.com/IvanChernoborodov"><i class="fa fa-github" aria-hidden="true"></i>
+							</a></li>
+							<li><a href="https://t.me/ivanChb"><i class="fa fa-telegram" aria-hidden="true"></i>
+							</a></li>
+							{% if user.is_authenticated %}
+								Hi {{ user.username }}!
+								<a href="{% url 'my_account' %}" }">Аккаунт</a>
+								<a href="{% url 'logout' %}">logout</a>
+							{% else %}
+								<a href="{% url 'login' %}">login</a>
+
+								<a href="{% url 'signup' %}">Sign up</a>
+							{% endif %}
+								<a href="{% url 'board' %}">Обсуждения</a>
+
+
+							
+						</ul>
+					</div>
+			</nav>
+			<div class="col-lg-6 col-lg-offset-3 animate-box">
+				<form method="GET" action='' >
+					<div class="search-bar">
+						<input type="text" name='q' placeholder="search" value='{{ request.get.q }}' required=""></input>
+						<div class="search-icon"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<section id="intro">
+			<nav class='menu animate-box'>
+				<div class="wideDiv">
+				{% block category %}
+				{% for c in category_all %}
+				<a href="{{ c.get_absolute_url }}">{{ c.slug }}</a>
+				{% endfor %}
+				{% endblock category %}
+				</div>
+			</nav>
+		</section>
+	</header>
+{% block body %}
+{% endblock body %}
+<main>
+{%  block content %}
+	<section id="work">
+		<div class="container">
+			<div class="row">
+				{% for x in list %}
+					<div class="col-md-4">
+						{% if x.image %}
+						<div class="fh5co-grid animate-box" style="background-image: url({{ x.image.url }});">
+							<a class="image-popup text-center" href="{{ x.get_absolute_url }}">
+								<div class="work-title">
+									<h3>{{ x.title }}</h3>
+									<span>{{ x.category }}</span>
+								</div>
+							</a>
+						</div>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endblock content %}
+</main>
+
+
+{% block footer %}
+	<footer id="footer" role="contentinfo">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center ">
+					<div class="footer-widget border">
+
+						<p class=""><small>PYTHON 3.6</small><br></p>
+						<small class='django'>Django 1.11</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+{% endblock footer %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

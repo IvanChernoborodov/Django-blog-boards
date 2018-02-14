@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block block_title %}
+Edit|{{ instance.title }}
+{% endblock block_title %}
+{% block extra %}
+{{ form.media }}
+{% endblock extra %}
+
+{% block content %}
+	<div class="col-md-6 ">
+		<form method='POST' action='' enctype="multipart/form-data">{% csrf_token %}
+			{{ form.as_p }}
+			<input type='submit' value="Create Post">
+		</form>
+	</div>
+	<div class="col-md-6" >
+		<div class="content-preview" ></div>
+		<h3 id="preview-title"></h3>
+		<p id="preview-content"></p>	
+		<p id="preview-slug" ></p>
+	</div>	
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

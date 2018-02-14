@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block block_title %}
+{{  instance.title }}|{{ block.super }}
+{% endblock block_title %}
+	
+{% block content %}
+<div class="container animate-box">
+      <div class="row animate-box">
+        <!-- Post Content Column -->
+        <div class="col-lg-8 animate-box">
+          <!-- Title -->
+          <h1 class="mt-4 animate-box">{{ instance.title }}</h1>
+          <hr>
+          <!-- Date/Time -->
+          <p>{{ instance.date_of_creating }}</p>
+          <hr>
+          <p class="content-markdown animate-box">{{ instance.content }}</p>
+        </div>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4 animate-box">
+        
+          <!-- Categories Widget -->
+          <div class="card my-4 animate-box">
+            <h5 class="card-header">Categories</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6 xxx">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      {% for c in category_all %}
+                      <a href="{{ c.get_absolute_url }}">{{ c.slug }}</a>
+                      {% endfor %}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Side Widget -->
+         <!--  <div class="card my-4">
+            <h5 class="card-header">Side Widget</h5>
+            <div class="card-body">
+              Django programming
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+
+
+
+{% block sidebar %}
+	
+{% endblock sidebar  %}	
+
+{% endblock content %}	
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="button">Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+<section id="product">
+			<div class="container">
+				<div class="row">
+					<div class="post-entry">
+					{% for x in list %}
+						<div class="col-md-6">
+						{% if x.image %}
+							<div class="post animate-box">
+								<a href="{{ x.get_absolute_url }}"><img src="{{ x.image.url }}" alt="Product"></a>
+								<div>
+									<h3>{{ x.title }}</h3>
+									<p> {{ x.category }} </p>
+									<p>{{ x.content|truncatechars:25 }}</p>
+									<span><a href="{{ x.get_absolute_url }}">Читать далее</a></span>
+								</div>
+							</div>
+						{% endif %}
+						</div>
+					{% endfor %}
+				
+					</div>
+				</div>
+			</div>
+</section> 
