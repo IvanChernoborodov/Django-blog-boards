@@ -10,39 +10,61 @@ from django.contrib.auth import authenticate, login
 from django.views.generic import View
 from posts.forms import PostForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView, ListView
 
-def category(request, slug):
-	html = 'category.html'
-	query_set_list = Post.objects.all()
-	Category_all = Category.objects.all()
-	category = Category.objects.get(slug=slug)
-	post = Post.objects.filter(category=category)
-	context = {
-		'category_all' : Category_all,
-		'category': category,
-		'post': post,
-		"list" : query_set_list,
+class Category(ListView):
+	model = Caregory
+	template_name = 'category.html'
+	context_object_name = 'category_all'
 
-	}
-	return render(request, html, context)
+# def category(request, slug):
+# 	html = 'category.html'
+# 	query_set_list = Post.objects.all()
+# 	Category_all = Category.objects.all()
+# 	category = Category.objects.get(slug=slug)
+# 	post = Post.objects.filter(category=category)
+# 	context = {
+# 		'category_all' : Category_all,
+# 		'category': category,
+# 		'post': post,
+# 		"list" : query_set_list,
 
+# 	}
+# 	return render(request, html, context)
 
-def listofposts(request, category_slug = None):
-	html = 'base.html'
-	Category_all = Category.objects.all()
-	query_set_list = Post.objects.all()
-	query = request.GET.get("q")
-	if query:
-		query_set_list = query_set_list.filter(title__icontains=query)
-	if category_slug:
-		category = get_object_or_404(Category, slug=category_slug)
-		products = Post.filter(category=category)
-	context = {
-	"title" : 'Записки',
-	"list" : query_set_list,
-	'category_all' : Category_all,
-	}
-	return render(request, html, context)
+class List(ListView):
+	model = Post
+	paginate_by = 3
+	template_name = 'base.html'
+	context_object_name = 'list'
+
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		qs = model.objects.all()
+		if query:
+			if qs.filter(title__icontains=query):
+				return qs.filter(title__icontains=query)
+			else:
+				raise Http404("Doesn't exist")
+		return qs
+	
+	
+# def listofposts(request, category_slug = None):
+# 	html = 'base.html'
+# 	Category_all = Category.objects.all()
+# 	query_set_list = Post.objects.all()
+# 	query = request.GET.get("q")
+# 	if query:
+# 		query_set_list = query_set_list.filter(title__icontains=query)
+# 	if category_slug:
+# 		category = get_object_or_404(Category, slug=category_slug)
+# 		products = Post.filter(category=category)
+# 	context = {
+# 	"title" : 'Записки',
+# 	"list" : query_set_list,
+# 	'category_all' : Category_all,
+# 	}
+# 	return render(request, html, context)
 
 
 
